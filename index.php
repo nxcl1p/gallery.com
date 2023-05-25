@@ -36,32 +36,39 @@ if (isset($_POST['delete'])) {
 </head>
 
 <body class="text-bg-dark">
-
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <div class="navbar-brand">
-        <h1>
-          <? echo $dir ?>
-        </h1>
-      </div>
-      <div class="nav navbar-nav">
+      <a class="navbar-brand">
+        <h3>
+          You're in
+          <?= $dir ?>
+        </h3>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        </ul>
         <form action="index.php?dir=<? echo $dir; ?>" class="d-flex my-2 my-lg-0" method="post"
           enctype="multipart/form-data" autocomplete="off">
-          <input type="file" id="file" name="uploaded_image" class="form-control me-2">
+          <input type="file" id="file" name="uploaded_image" class="form-control me-2 text-bg-dark">
           <button type="submit" class="btn btn-success">Submit</button>
         </form>
       </div>
     </div>
   </nav>
+
   <div class="container-fluid">
     <div class="row">
-      <div class="list-group col-lg-2">
+      <div class="list-group col-lg-2 text-center text-md-start">
         <?
         $root_dir = opendir(".");
         while ($file = readdir($root_dir)): ?>
         <? if (is_dir($file) && $file != '.' && $file != '..' && $file != 'bootstrap' && $file != '.git'):
           $files = array_diff(scandir($dir), array('..', '.')); ?>
-        <a href='index.php?dir=<?= $file ?>' class="list-group-item list-group-item-action text-bg-secondary"><i
+        <a href='index.php?dir=<?= $file ?>' class="list-group-item list-group-item-action text-bg-dark border-0"><i
             class="bi bi-folder-fill"></i>
           <?= $file ?>
         </a>
@@ -71,7 +78,7 @@ if (isset($_POST['delete'])) {
       </div>
 
       <? foreach ($files as $file): ?>
-      <div class="col-4 col-lg-2 text-center" style="max-width: 100%;">
+      <div class="col-6 col-lg-2 text-center" style="max-width: 100%;">
         <img src="<? echo $dir . '/' . $file; ?>" alt="img" class="img-fluid">
         <form method="post" class="pt-3 pb-3">
           <input type="hidden" name="filename" value="<? echo $file ?>">
