@@ -31,6 +31,7 @@ if (isset($_POST['delete'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <title>Gallery</title>
 </head>
 
@@ -52,35 +53,37 @@ if (isset($_POST['delete'])) {
       </div>
     </div>
   </nav>
-
-  <?
-  $root_dir = opendir(".");
-  while ($file = readdir($root_dir)): ?>
-  <? if (is_dir($file) && $file != '.' && $file != '..' && $file != 'bootstrap'):
-    $files = array_diff(scandir($dir), array('..', '.')); ?>
-  <div class='container'>
-    <div class='row'>
-      <a href='index.php?dir=<?= $file ?>' class='' type='button'><?= $file ?></a>
-    </div>
-  </div>
-  <? endif; ?>
-  <? endwhile; ?>
-  <? closedir($root_dir); ?>
-
-
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
+      <div class="list-group col-lg-2">
+        <?
+        $root_dir = opendir(".");
+        while ($file = readdir($root_dir)): ?>
+        <? if (is_dir($file) && $file != '.' && $file != '..' && $file != 'bootstrap' && $file != '.git'):
+          $files = array_diff(scandir($dir), array('..', '.')); ?>
+        <a href='index.php?dir=<?= $file ?>' class="list-group-item list-group-item-action text-bg-secondary"><i
+            class="bi bi-folder-fill"></i>
+          <?= $file ?>
+        </a>
+        <? endif; ?>
+        <? endwhile; ?>
+        <? closedir($root_dir); ?>
+      </div>
+
       <? foreach ($files as $file): ?>
-      <div class="col-6 col-lg-2 text-center" style="max-width:100%" ;>
+      <div class="col-4 col-lg-2 text-center" style="max-width: 100%;">
         <img src="<? echo $dir . '/' . $file; ?>" alt="img" class="img-fluid">
         <form method="post" class="pt-3 pb-3">
           <input type="hidden" name="filename" value="<? echo $file ?>">
-          <button type="submit" class="btn btn-danger btn-primary" name="delete">Delete</button>
+          <button type="submit" class="btn btn-danger btn-primary" name="delete"><i
+              class="bi bi-trash-fill"></i>Delete</button>
         </form>
       </div>
       <? endforeach; ?>
     </div>
   </div>
+  </div>
+
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
