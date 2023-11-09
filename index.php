@@ -1,9 +1,5 @@
 <?
-if (isset($_GET['dir'])) {
-  $dir = $_GET['dir'];
-} else {
-  $dir = 'img/';
-}
+$dir = (isset($_GET['dir'])) ? $_GET['dir'] : 'img';
 
 if (!empty($_FILES)) {
   move_uploaded_file($_FILES['uploaded_image']['tmp_name'], $dir . '/' . $_FILES['uploaded_image']['name']);
@@ -67,7 +63,7 @@ if (isset($_POST['delete'])) {
         $root_dir = opendir(".");
         while ($file = readdir($root_dir)): ?>
         <? if (is_dir($file) && $file != '.' && $file != '..' && $file != 'bootstrap' && $file != '.git'):
-          $files = array_diff(scandir($dir), array('..', '.')); ?>
+          $files = array_diff(scandir($dir), ['..', '.']); ?>
         <a href='index.php?dir=<?= $file ?>' class="list-group-item list-group-item-action text-bg-dark border-0"><i
             class="bi bi-folder-fill"></i>
           <?= $file ?>
@@ -88,7 +84,6 @@ if (isset($_POST['delete'])) {
       </div>
       <? endforeach; ?>
     </div>
-  </div>
   </div>
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
