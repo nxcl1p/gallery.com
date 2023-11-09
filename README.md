@@ -1,3 +1,3 @@
 # gallery.com
 
-kumalala kumalala))
+WHAT THE F
