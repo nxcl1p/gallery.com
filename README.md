@@ -1,3 +1,3 @@
 # gallery.com
 
-WHAT THE F
+Simple gallery written on pure PHP
